@@ -1,6 +1,6 @@
 import express from 'express';
-import path from "path";
-import fs from "fs";
+import path from 'path';
+import fs from 'fs';
 
 const routes = express.Router();
 
@@ -14,7 +14,7 @@ routes.get('/', (req, res) => {
   fs.readdir(directoryPath, function (err: any, files: any) {
     if (err) {
       res.status(500);
-      res.json({error: 'Unable to scan directory: ' + err});
+      res.json({ error: 'Unable to scan directory: ' + err });
       return;
     }
     // Return list of files as html with links
@@ -22,13 +22,17 @@ routes.get('/', (req, res) => {
     res.status(200);
     res.write('<html><body>');
     res.write('<h1>Image Processing API</h1>');
-    res.write("<br><br><a href='/'><strong>Refresh Size</strong></a><br><br><br><br>");
+    res.write(
+      "<br><br><a href='/'><strong>Refresh Size</strong></a><br><br><br><br>"
+    );
     res.write('<ul>');
     files.forEach(function (file: any) {
       // Random size between 600 and 1000
       const width = Math.floor(Math.random() * 400) + 600;
       const height = Math.floor(Math.random() * 800) + 300;
-      res.write(`<li><a href="/images/${file}?width=${width}&height=${height}" target="_blank">${file} - Size: ${width}x${height}</a></li>`);
+      res.write(
+        `<li><a href="/images/${file}?width=${width}&height=${height}" target="_blank">${file} - Size: ${width}x${height}</a></li>`
+      );
     });
     res.write('</ul>');
     res.write('</body></html>');
